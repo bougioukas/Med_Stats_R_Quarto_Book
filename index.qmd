@@ -8,6 +8,8 @@ Most of the examples discussed in this textbook are based on scientific studies 
 
 All sections of this textbook are reproducible as they were made using [Quarto](https://quarto.org/)^®^ that includes R code used to produce the figures, tables and results shown in the book. Quarto^®^ is an open-source scientific and technical publishing system built on [Pandoc](https://pandoc.org/).
 
+sfsf
+
 To learn more about Quarto books visit <https://quarto.org/docs/books>.
 
 ## License
