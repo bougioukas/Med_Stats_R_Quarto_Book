@@ -1,0 +1,1355 @@
+---
+title: "Chapter 1: Introduction to R and Rstudio"
+subtitle: "Version 1.0.0"
+author: "Konstantinos I. Bougioukas"
+date: '`r format(Sys.Date(), "%d\\/%m\\/%Y")`'
+numbersections: true
+header-includes:
+    - \usepackage[sfdefault]{roboto}
+    - \usepackage[T1]{fontenc}
+    - \usepackage{fontawesome5}
+output: 
+  pdf_document:
+        toc: true
+        toc_depth: 3
+geometry: margin=1.15in, bottom= 1.15in 
+mainfont: roboto
+fontsize: 12pt
+linestretch: 1.3
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, eval = TRUE)
+
+library(tidyverse)
+library(readr)
+library(here)
+
+library(flextable)
+
+library(knitr)
+library(kableExtra)
+options(width=45)
+knitr::opts_chunk$set(fig.pos = 'H', dev = "cairo_pdf")
+```
+
+```{=tex}
+\newpage
+\vspace{16pt}
+```
+### Learning Objectives {.unnumbered}
+
+-   Describe the purpose and use of each pane in the RStudio IDE
+-   Locate buttons, options in the RStudio IDE
+-   Work with R projects
+-   Understand the concept of functions and packages
+-   Use R as a calculator
+-   Use mathematical functions and relational operators
+-   Understand special values (NA, Inf, NaN)
+-   Understand the concept of objects in R
+-   Set legal names to objects
+-   Work with assignment operators
+
+\newpage
+
+# R and RStudio basics
+
+## Installing R and RStudio
+
+First things first. We need to download and install both R and RStudio (an integrated development environment for R) on our personal computer. First, we install R, then we will need to install RStudio.
+
+1.  First, we must [\color{blue}\underline {Download and install R}](https://cran.r-project.org/)
+
+-   If you are a Windows user: Click on "Download R for Windows", then click on "base", then click on the Download link.
+-   If you are macOS user: Click on "Download R for (Mac) OS X", then under "Latest release:" click on R-X.X.X.pkg, where R-X.X.X is the version number.
+
+2.  Second, we must [\color{blue}\underline {Download and install RStudio}](https://www.rstudio.com/products/rstudio/download/)
+
+-   Scroll down near the bottom of the page.
+-   Click on the download link corresponding to your computer's operating system.
+
+We follow the usual installation procedures for R and RSudio.
+
+## What are R and RStudio?
+
+We will use R via RStudio. Beginners often confuse the two applications. Using an analogy, R is like an airplane's engine while RStudio is like an airplane's dashboard (Figure \ref{fig:engine_analogy}). Specifically, R is a statistical programming language (an implementation of the S programming language) and a powerful graphics engine, which was created by Ross Ihahka and Robert Gentleman at the University of Auckland in 1993. The name R for the language was coined after the initials of the forenames of the inventors, plus the influence of the S language.
+
+R does all the heavy work (like an airplane engine) while RStudio is an integrated development environment (IDE) that was founded by J.J. Allaire in 2009. RStudio provides a friendly interface by adding a plenty of great features, auto-complete functions and tools (like an airplane dashboard with electronic monitors, and navigation systems) and makes life a lot easier.
+
+```{r, out.width="5.5in", fig.align = 'center', fig.cap="\\label{fig:engine_analogy}Analogy of difference between R and RStudio", echo=FALSE}
+include_graphics(here("images", "engine_analogy.png"))
+
+```
+
+After we install R and RStudio on our computer, we'll have two new programs (also called applications) we can open. In this book, we'll always work in **RStudio**.
+
+## Starting R & RStudio
+
+After the RStudio installation is finished, click the RStudio icon (Figure \ref{fig:r_studio_icon}):
+
+```{r, out.width="1.0in", fig.align = 'center', fig.cap="\\label{fig:r_studio_icon}RStudio icon.", echo=FALSE}
+include_graphics(here("images", "r_studio_icon.png"))
+```
+
+R starts automatically when we open RStudio (Figure \ref{fig:RStudio-panels}) and we are greeted by three panes:
+
+```{r, out.width='100%', fig.align = 'center', fig.cap="\\label{fig:RStudio-panels}RStudio Screenshot with Console on the left and  Help tab in the bottom right.", echo=FALSE}
+include_graphics(here("images", "RStudio-panels.png"))
+```
+
+The three main panes that divide the screen are:
+
+a)  the large **Console pane** on the left runs R code.
+
+b)  the workspace pane, which includes the Environment and History tabs, in the upper right.
+
+-   The **Environment tab** keeps track of the objects we create as we work with R (a major part of our tasks involves creating objects).
+
+-   The **History tab** tracks all of the commands that we have sent to the R console in the session.
+
+c)  the Files/Plots/Packages/Help/Viewer pane in the lower right.
+
+-   The **Files tab** lets us create new folders (directories) on our computer, as well as copy, move, delete, or rename files.
+
+-   The **Plots tab** holds graphs and charts we generate from our data and during the analysis.
+
+-   The **Packages** tab lists of all the R packages installed on our hard drive and indicates whether or not they are currently loaded. We'll discuss packages in more detail in the next sections.
+
+-   The **Help tab**, provides links to search for help directly from our RStudio window.
+
+-   The **Viewer tab** in RStudio allows us to view local web content (e.g., to view an html table).
+
+Throughout this textbook, we'll come to learn what purpose each of these panes serve.
+
+```{=tex}
+\vspace{12pt} 
+\colorbox{blue!10}{
+              \begin{minipage}[t]{1.0\textwidth}
+              \textbf{\textcolor{brown}{Note}}
+The Console pane starts with information about the version number, license and contributors, and provides some guidance on how to get help. The last line is a standard command prompt (the greater than sign \textbf{>} symbol) that indicates R is ready and expecting instructions to do something.
+              \end{minipage}
+           }
+```
+\vspace{12pt}
+
+Let's type 14 + 16 at the R command prompt and press Enter:
+
+```{r}
+14 + 16
+```
+
+So what happened?
+
+Well, R gave us a response (output) to our input (14 + 16). That response came after we pressed the Enter key. It was `[1] 30`. It's clear that 30 is the answer to the 14 + 16. However, what does the \[1\] mean? At this point we can pretty much ignore it, but technically it refers to the index of the first item on each line. (Sometimes R prints out many lines as an output. The number inside the brackets helps us figure out where in the sequence we are per line).
+
+## R scripts
+
+Usually, we do our programming by writing our code in script files. An R script (with the ".R" extension) is simply a text file in which our R code is stored, and then can be "sent" to the console, where R will execute it.
+
+There are many advantages writing our R code as an R script file:
+
+-   We can save and reuse our code
+-   We can document our work (however, we can only include one-line comments and these must be prefixed with the hash symbol, #)
+-   We can share our work with others
+-   We can move beyond writing one line of code at a time
+
+If we go to **File \> New File \> R Script** in the RStudio menu, we should see another pane (Q1) opened on the left above the interactive console (Figure \ref{fig:RStudio-4panels}). This is where we can write a length script with lots of lines of code, and save the file for future use.
+
+```{r , out.width='100%', fig.align="center", fig.show='hold', fig.cap="\\label{fig:RStudio-4panels}RStudio Screenshot with four panes.", echo=FALSE}
+include_graphics(here("images", "RStudio-4panels.png"))
+```
+
+Therefore, the RStudio window is divided into **four** panes (quadrants) that contain:
+
+-   Q1 - code editor (script)
+-   Q2 - console
+-   Q3 - environment (workspace), history
+-   Q4 - files, plots, packages, help, viewer (for local web content)
+
+```{=tex}
+\vspace{12pt} 
+\colorbox{blue!10}{
+              \begin{minipage}[t]{1.0\textwidth}
+              \textbf{\textcolor{brown}{Note}}
+The four panes might be in a different order that those in Figure \ref{fig:RStudio-4panels}. If we’d like, we can change the order of the windows under RStudio preferences (\textbf{Tools >  Global Options > Pane layout}). We can also change their shape by either clicking the minimize or maximize buttons on the top right of each pane, or by clicking and dragging the middle of the borders of the windows.
+              \end{minipage}
+           }
+```
+\vspace{14pt}
+
+We can execute our code line by line by putting the cursor on the line or selecting a chunk of lines (by highlighting the text) and pressing the **run** button in the source window.
+
+```{=tex}
+\colorbox{blue!10}{
+              \begin{minipage}[t]{1.0\textwidth}
+              \textbf{\textcolor{brown}{Note}}
+We can also run our selected code using the keywboard shortcut ``Ctrl + Enter''.
+              \end{minipage}
+           }
+```
+\vspace{16pt}
+
+## Errors, warnings, and messages in R
+
+Let's type the following at the R command prompt and press Enter:
+
+```{r , error=TRUE, eval=FALSE}
+hello
+```
+
+we get the following error:\
+`r text_spec("Error: object ‘hello’ not found", color = "red")`
+
+```{=tex}
+\colorbox{blue!10}{
+              \begin{minipage}[t]{1.0\textwidth}
+              \textbf{\textcolor{brown}{Note}}
+Keep in mind that R is an object oriented programming language, meaning that \textbf{everything} in R is an object.
+              \end{minipage}
+           }
+```
+\vspace{12pt}
+
+One thing that intimidates new R and RStudio users is how it reports errors, warnings, and messages. R reports errors, warnings, and messages in a glaring red font, which makes it seem like it is scolding us. However, seeing red text in the console is not always bad.
+
+R will show \textcolor{red}{red text} in the console pane in three different situations:
+
+-   **Errors:** When the red text is a legitimate error, it will be prefaced with "Error..." and try to explain what went wrong. Generally when there's an error, the code will not run.
+
+-   **Warnings:** When the red text is a warning, it will be prefaced with "Warning:" and R will try to explain why there's a warning. Generally our code will still work, but with some caveats.
+
+-   **Messages:** When the red text doesn't start with either "Error" or "Warning", it's just a friendly message.
+
+\vspace{15pt}
+
+Now, let's type the following:
+
+```{r continuation, echo=TRUE, eval=FALSE}
+1 + 2 -
++
+```
+
+```{=tex}
+\colorbox{blue!10}{
+              \begin{minipage}[t]{1.0\textwidth}
+              \textbf{\textcolor{brown}{Note}}
+If an R command is not complete then R will show a plus sign (+) prompt on second and subsequent lines until the command syntax is correct (this means that we can type something to finish the command we are trying to execute). We can also hit the escape key (ESC) to
+cancel whatever command R is waiting for us to finish.
+              \end{minipage}
+           }
+```
+## R Help resources
+
+Before asking others for help, it's generally a good idea for us to try to help ourself. It is strongly recommended to learn how to use R's useful and extensive built-in help system which is an essential part of finding solutions to our R programming problems.
+
+We can use the **`help()`** function or **`?`** help operator which provide access to the R documentation pages for a specific term. For example, if we want information for the `mean` we type the following commands (which give the same result):
+
+```{r, echo=TRUE, eval=FALSE}
+help(mean)
+```
+
+or
+
+```{r, echo=TRUE, eval=FALSE}
+?mean
+```
+
+```{r , out.width='75%', fig.align="center", fig.show='hold', fig.cap="\\label{fig:mean_help}R help() function search for specific term such as `mean`", echo=FALSE}
+include_graphics(here("images", "mean_help.png"))
+```
+
+So, R tried to find something called `mean` (Figure \ref{fig:mean_help}).
+
+\vspace{15pt}
+
+```{=tex}
+\colorbox{blue!10}{
+              \begin{minipage}[t]{1.0\textwidth}
+              \textbf{\textcolor{brown}{Note}}
+In console to recall a previously typed commands use the up arrow key ($\uparrow$). To go between previously typed commands use the up and down arrow ($\downarrow$) keys. To modify or correct a command use the left  ($\leftarrow$) and right arrow ($\rightarrow$) keys.
+              \end{minipage}
+           }
+```
+\vspace{14pt}
+
+Two question marks (**`??`**) will search R documentation for a phrase or term and it is a shortcut to `help.search()` function. So for example, let's say we want to search documentation for `linear regression` analysis. Keep in mind if our phrase is more than one word long, we must put it in quotation marks.
+
+```{r , echo=TRUE, eval=FALSE}
+??"linear regression"
+```
+
+\vspace{14pt}
+
+To do a keyword search use the **`apropos()`** command with the keyword in double quotes, `"keyword"`, or single quote, `'keyword'`. For example:
+
+```{r aproposShow, echo=TRUE, eval=TRUE}
+apropos("mean")
+```
+
+\vspace{14pt}
+
+Use the **`example()`** command to run the examples at the end of the help for a function:
+
+```{r}
+example(mean)
+```
+
+RStudio also provides search box in the **"Help"** tab to make our life easier (Figure \ref{fig:RStudio-panels}).
+
+Like Google, but for R is the [\color{blue}\underline {RSeek.Org}](https://rseek.org/). This is not included in R but is a great search engine built specifically for R-related queries.
+
+\vspace{14pt}
+
+Additionally, there are a lot of **on-line** resources that can help (e.g., [\color{blue}\underline {R-bloggers}](https://www.r-bloggers.com/)). However, we must understand that blindly copying and pasting could be harmful and further it won't help us to learn and develop.
+
+```{=tex}
+\colorbox{blue!10}{
+              \begin{minipage}[t]{1.0\textwidth}
+              \textbf{\textcolor{brown}{Note}}
+When we search on-line we should use [R] in our search term (e.g., [R] summary statistics by group) which gives an exact match of R keyword. Often there is more than one solution to our problem.  It is good to investigate the different options.
+              \end{minipage}
+           }
+```
+\vspace{14pt}
+
+## Quitting R & RStudio
+
+When we quit RStudio we will be asked whether to save workspace with two options:
+
+-   "Yes" -- Our current R workspace (containing the work that we have done) will be restored next time we open RStudio.
+-   "No" -- We will start with a fresh R session next time we open RStudio. For now select "*No*" to prevent errors being carried over from previous sessions.
+
+\newpage
+
+# Working with RStudio Projects
+
+## Create a new RStudio Project
+
+When we are working in R, the program needs to know where to find inputs and deliver outputs, and will look first in what is called a "working directory". Moreover, we want to organize all of the files for a given project in one folder, and that particular folder should be established as our working directory.
+
+Keeping all the files associated with a project organized together -- input data, R scripts, documents and figures -- is such a wise and common practice that RStudio has built-in support for this via its projects. RStudio projects are associated with R working directories (Figure \ref{fig:create_project}). We can create an RStudio project:
+
+-   In a new directory
+-   In an existing directory where we already have R code and data
+-   By cloning a version control (Git or Subversion) repository
+
+Let's make one to use for the rest of this textbook. We do this: **`File > New Project…`**. The directory name we choose here will be the `project name`. We call it whatever we want (e.g.medstats).
+
+```{r, out.width="5.8in", fig.align="center", fig.show='hold', fig.cap="\\label{fig:create_project}RStudio projects are associated with R working directories", echo=FALSE}
+include_graphics(here("images", "create_project.png"))
+```
+
+```{=tex}
+\vspace{12pt} 
+\colorbox{blue!10}{
+  \begin{minipage}[t]{1.0\textwidth}
+  \textbf{\textcolor{brown}{Note}}
+  
+Think carefully about which \textbf{``subdirectory"} we put the RStudio project in. If we don’t store it somewhere sensible, it will be hard to find it in the future!
+   
+  \end{minipage}
+}
+\vspace{14pt}
+```
+## RStudio Project folder structure
+
+The files on our computer are organised into folders. RStudio Projects live in our computer's normal folders - they placemark the working directory of each analysis project. These project folders can be viewed or moved around the same way we normally work with files and folders on our computer.
+
+The proposed RStudio Project should contain the following sub-folders (Figure \ref{fig:project_structure}):
+
+-   data: data files of any kind, such as `.csv`, `.xlsx`, `.txt`, etc.
+-   documents: documents of any formats, such as `.docx`, `.pdf`, .`tex`, `.Rmd`, etc.
+-   figures: plots, diagrams, and other figures
+-   scripts: all your R scripts and codes (`.R` extension)
+
+\vspace{12pt}
+
+Additionally, there are two important files in the project folder that are created automatically by Rstudio: **`name_of_project.Rproj`**, and **`.Rhistory`**:
+
+-   `name_of_project.Rproj`: contains options and meta-data of the project (encoding, the number of spaces used for indentation, whether or not to restore a workspace with launch, etc) and can also be used as a shortcut for opening the project directly from the filesystem.
+
+-   `.Rhistory`: contains a history of code executed
+
+```{r , out.width="4in", out.height="4in", fig.align="center", fig.show='hold', fig.cap="\\label{fig:project_structure}Project folder structure", echo=FALSE}
+include_graphics(here("images", "project_structure.png"))
+```
+
+It is recommended to work with RStudio Projects. This enables us to switch between different projects without getting the data, scripts, or output files all mixed up. Everything gets read in or saved to the correct place. No more exporting a plot and then going through the various Documents, etc., folders on our computer trying to figure out where our plot might have been saved to. It got saved to the project folder.
+
+\newpage
+
+# R Functions
+
+## Characteristics of R Functions
+
+We have already used some R functions searching for help (i.e. `help()`, `example()`, `apropos()`). Most of the computations in R involves using functions.
+
+> A function essentially has a **name** and a list of **arguments** separated by a comma.
+
+Let's have look at an example:
+
+```{r}
+seq(from = 5, to = 8, by = 0.5)
+```
+
+The function name is `seq` and it has three explicitly named arguments `from`, `to` and `by`. The arguments `from` and `to` are the start and end values of a sequence that we want to create, and `by` is the increment of the sequence.
+
+\vspace{14pt}
+
+The above result can also be obtained without naming the arguments as follows:
+
+```{r}
+seq(5, 8, 0.5)
+```
+
+\vspace{14pt}
+
+```{=tex}
+\colorbox{blue!10}{
+  \begin{minipage}[t]{1.0\textwidth}
+  \textbf{\textcolor{brown}{Tip}}
+It’s a good idea to name arguments to functions. This practice minimizes errors assigning unnamed arguments to options and makes code more readable.
+  \end{minipage}
+}
+```
+\vspace{14pt}
+
+And what about this?
+
+```{r}
+seq(5, 8)
+```
+
+This result demonstrates something about how R resolves function arguments.
+
+> If we don't use argument names, R will match the arguments in the order that they appeared (positional matching).
+
+Here, it is assumed that we want a sequence from = 5 that goes to = 8. Since we didn't specify step size, the default value of `by` in the function definition is used, which ends up being 1 in this case.
+
+Moreover, the `seq()` function has other arguments that we could use which are documented in the help page running `?seq`. For example, we could use the argument `length.out` (instead of `by`) to fix the length of the sequence as follows:
+
+```{r}
+seq(from = 5, to = 8, length.out = 16)
+```
+
+\vspace{14pt}
+
+```{=tex}
+\colorbox{blue!10}{
+  \begin{minipage}[t]{1.0\textwidth}
+  \textbf{\textcolor{brown}{Note}}
+Some arguments in a function may be \textbf{optional}. We can use args() for displaying the argument names and corresponding default values of a function.
+  
+  \end{minipage}
+}
+```
+Let's see for example the `log()` function:
+
+```{r}
+args(log)
+```
+
+In the `log()` function `base` comes with a default value exp(1). This means that `base` is an optional argument.
+
+R will use our value for `base` if we supply one:
+
+```{r}
+log(15, base = 10)  # R uses our value 10
+```
+
+\vspace{12pt}
+
+otherwise R will use the default vaue which here is `exp(1)`:
+
+```{r}
+log(15)  # R uses the default value of `exp(1)`
+```
+
+\vspace{13pt}
+
+In contrast, `x` is a required argument because it is not come with a default value. If we don't supply `x` argument the `log()` function will fail:
+
+```{r, error=TRUE, eval= FALSE}
+log(base=10)
+```
+
+`r text_spec("Error: argument x is missing, with no default", color = "red")`
+
+\vspace{12pt}
+
+```{=tex}
+\colorbox{blue!10}{
+  \begin{minipage}[t]{1.0\textwidth}
+  \textbf{\textcolor{brown}{Note}}
+ Not all functions have (or require) arguments.
+  \end{minipage}
+}
+```
+For example:
+
+```{r}
+date()
+```
+
+\vspace{12pt}
+
+```{=tex}
+\colorbox{blue!10}{
+  \begin{minipage}[t]{1.0\textwidth}
+  \textbf{\textcolor{brown}{Note}}
+  Functions "live" in Base R and in R packages!
+  \end{minipage}
+}
+```
+```{r, out.width="5.2in", out.height="3.6in", fig.align="center", fig.show='hold', fig.cap="\\label{fig:packages}Functions live inside the R packages that can be downloaded from the internet", echo=FALSE}
+include_graphics(here("images", "packages.png"))
+```
+
+\vspace{16pt}
+
+## Custom Functions
+
+We can create our own functions (using the **`function()`**) which is a very powerful way to extend R. Writing our own functions is outside the scope of this guide. As we get more and more familiar with R it is very likely that we will eventually need to learn about them but for now we don't need to.
+
+For example a function that convert Celsius to Kelvin is:
+
+```{r}
+celsius_to_kelvin <- function(temp_C) {
+  temp_K <- temp_C + 273.15
+  return(temp_K)
+}
+# freezing point of water in Kelvin
+celsius_to_kelvin(0)
+```
+
+\vspace{16pt}
+
+## Option Function
+
+The `options()` function in R can be used to change various default behaviors. For example, the digits argument controls the number of digits to display in output. The current options are returned when `options()` is called,to allow them to be restored. The command `help(options)` lists all of the set table options.
+
+\newpage
+
+# R packages
+
+## What are R packages?
+
+R packages are another interesting point in R. By default, R installs automatically a set of standard packages (base packages) during installation process. Base packages contain the basic functions that allow R to work, and enable standard statistical and graphical functions on data sets.
+
+\vspace{14pt}
+
+More packages can be added later from repositories, when they are needed for some specific purpose (add-on R packages).
+
+```{=tex}
+\colorbox{blue!10}{
+  \begin{minipage}[t]{1.0\textwidth}
+  \textbf{\textcolor{brown}{Add-on R packages}}
+extend the functionality of R by providing additional collection of functions, sample data, compiled code, some tests to check everything works as it should, and documentation for the package and the functions inside in a well-defined format. They are written by a world-wide community of developers and R users and can be installed for free from repositories. 
+  \end{minipage}
+}
+```
+\vspace{14pt}
+
+A repository is a place where packages are located and stored so we can install them from it. Some of the most popular repositories for R packages are:
+
+-   **CRAN:** Comprehensive R Archive Network(CRAN) is the official repository.
+
+-   **Github:** Github is the most popular repository for open source projects.
+
+-   **Bioconductor:** Bioconductor is a topic-specific repository, intended for open source software for bioinformatics.
+
+\vspace{14pt}
+
+To use an add-on package we need to:
+
+1.  ***Install the package from a repository***: If we want to use an add-on package for the first time, we need to install it first. Once we've installed a package, we likely won't install it again unless we want to update it to a newer version.
+
+2.  ***Load the package in R session***: Add-on packages are not loaded by default when we start RStudio on our computer. Each add-on package needs to be loaded explicitly **every time** we start RStudio.
+
+\vspace{14pt}
+
+For example, among the many add-on packages, we will use in this textbook are the `dplyr` package for data wrangling, the `ggplot2` package for data visualization and and the `rstatix` package for statistical tests.
+
+Let's now show how to perform these two steps for the `ggplot2` package for data visualization.
+
+## Package installation
+
+There are two ways to install an add-on R package: an easy way and a more advanced way.
+
+1.  **Installing Packages Using RStudio UI**
+
+Let's install the `rstatix` package the easy way first as shown in Figure \ref{fig:installation}. In the Q4 - files, plots, packages, help pane of RStudio:
+
+a)  Click on the "Packages" tab.
+b)  Click on "Install".
+c)  Type the name of the package under "Packages (separate multiple with space or comma):" In this case, type `rstatix`.
+d)  Click "Install."
+
+```{r, out.width="4.4in", fig.align="center", fig.show='hold', fig.cap="\\label{fig:installation}Installing packages in R the easy way", echo=FALSE}
+include_graphics(here("images", "installation.png"))
+```
+
+2.  **Installing packages from repositories using command**
+
+For installing the `rstatix` package from **CRAN** we type the following command in the console pane of RStudio and press **Enter** on our keyboard:
+
+```{r, eval=FALSE}
+install.packages("rstatix")
+```
+
+Note we must include the quotation marks around the name of the package.
+
+In order to install several package at once, we just have to write:
+
+```{r, eval=FALSE}
+install.packages(c("rstatix", "dplyr", "ggplot2"))
+```
+
+**We only have to install a package once**. However, if we want to update a previously installed package to a newer version, we need to re-install it by repeating the earlier steps.
+
+Moreover, suppose, for instance, that we want to download the **development** version of the `rstatix` package from GitHub. The first step is to install and load the `devtools` package, available in CRAN. On Windows, in case we encounter some error means we also need to install the **Rtools**. Then we can call the `install_github` function to install the R package from GitHub.
+
+In case we need to install an **older** version of a package the simplest method is to use the provided `install_version()` function of the devtools package to install the version we need.
+
+## Package loading
+
+Recall that after we've installed a package, we need to **load it**. In other words, we need to "open it." We do this by using the **`library()`** command (note that the the quotation marks are not necessary when we are loading a package). For example, to load the `rstatix` package, run the following code in the console pane. What do we mean by "run the following code"? Either type or copy & paste the following code into the console pane and then hit the Enter key.
+
+```{r, eval=FALSE}
+library(rstatix)
+```
+
+There is always confusion between a package and a library, and we find people calling libraries as packages. The directories in R where the packages are stored are called the libraries.
+
+If after running the earlier code, a blinking cursor returns next to the `>` "prompt" sign in console, it means we were successful and the `rstatix` package is now loaded and ready to use. If however, we get a red "error message" that reads...
+
+`r text_spec("Error in library(rstatix) : there is no package called ‘rstatix’", color = "red")`
+
+... it means that we didn't successfully install it.
+
+\vspace{12pt}
+
+There is one way in R that can use a `function` without using `library()`. To do this, we can simply use the notation `package::function` .
+
+For example:
+
+```{r, eval=FALSE}
+rstatix::t_test()
+```
+
+The above notation tells R to use the `t_test` function from `rstatix` without load the \`rstatix\`\` package.
+
+## Getting help on packages with `vignette()`
+
+Many packages come with **"vignettes"**: tutorials and extended example documentation. Without any arguments, `vignette()` will list all vignettes for all installed packages; `vignette(package="package-name")` will list all available vignettes for `package-name`, and `vignette("vignette-name")` will open the specified vignette.
+
+If a package doesn't have any vignettes, we can usually find help by typing `help("package-name")`, or `?package-name`.
+
+For example, let's list the vignettes available in `dplyr` package. We will be using the `dplyr` package later in this textbook, to manipulate tables of data. we might want to take a look at these now, or later when we cover `dplyr`. Figure \ref{fig:vignettes} shows that there are several vignettes included in the package.
+
+```{r, eval=FALSE}
+vignette(package="dplyr")
+```
+
+```{r, out.width="6.4in", fig.show='hold', fig.cap="\\label{fig:vignettes}Vignettes in package `dplyr`", echo=FALSE}
+include_graphics(here("images", "vignettes.png"))
+```
+
+The `dplyr` vignette looks like it might be useful later. We can view this with:
+
+```{r, eval=FALSE}
+vignette(package="dplyr", "dplyr")
+```
+
+\vspace{14pt}
+
+## The `{tidyverse}` package
+
+In this tutorial we will use the `tidyverse` package. The tidyverse is an opinionated collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structures.
+
+The command `install.packages("tidyverse")` will **install** the complete tidyverse. The `tidyverse` package provides a shortcut for downloading the following packages:
+
+```{r echo = FALSE}
+tidyverse_packages()
+```
+
+\vspace{12pt}
+
+When we **load** the tidyverse package with the command `library(tidyverse)`, R will load the **core tidyverse** and make it available in our current R session (Figure \ref{fig:core_tidyverse}):
+
+```{r, out.width="6.2in", out.height="6.0in", fig.align="center", fig.show='hold', fig.cap="\\label{fig:core_tidyverse}Core tidyverse packages", echo=FALSE}
+include_graphics(here("images", "core_tidyverse.png"))
+```
+
+```{=tex}
+\vspace{14pt} 
+\colorbox{blue!10}{
+  \begin{minipage}[t]{1.0\textwidth}
+  \textbf{\textcolor{brown}{Note}}
+The "tidyverse" packages out of the core list have more specialised usage and are not loaded automatically with library(tidyverse), \textbf{so we’ll need to load each one with its own call to library()}.
+  \end{minipage}
+}
+```
+\vspace{14pt}
+
+## The `{here}` package
+
+We've talked about what `Projects` are and why we should use them, but what really makes `Projects` in `RStudio` shine is the use of the `here()` function from the {here} package. What `here()` does is eliminate the need for us to do what's called "hard-coding" our file path.
+
+> The place where the file lives on our computer is called the `path`. We can think of the path as directions to the file. There are two kinds of paths: `absolute paths` and `relative paths`.
+
+For example, suppose Alice and Bob are working on a project together and want to read in R studio of their computers a dataset file named `covid19.csv` data. They could do this using either a `relative` or an `absolute` path. We show what both choices below:
+
+1.  **Reading data using an `absolute` path**
+
+Alice's file is stored at `C:/alice/project/data/covid19.csv`
+
+and the command in R script should be:
+
+```{r, eval = FALSE}
+covid19 <- read_csv("C:/alice/project/data/covid19.csv")  
+```
+
+\vspace{14pt}
+
+while Bob's is stored at `C:/bob/project/data/covid19.csv`
+
+and the command in R script should be:
+
+```{r, eval = FALSE}
+covid19 <- read_csv("C:/bob/project/data/covid19.csv")
+```
+
+\vspace{15pt}
+
+Even though Alice and Bob stored their files in the same place on their computers (in their `C` disk), the absolute paths are different due to their different usernames. If Bob has code that loads the `covid19.csv` data using an absolute path, the code won't work on Alice's computer.
+
+\vspace{14pt}
+
+2.  **Reading data using a `relative` path**
+
+The command in R script should be:
+
+```{r, eval = FALSE}
+covid19 <- read_csv(here("data", "covid19.csv"))
+```
+
+\vspace{12pt}
+
+What `here()` does is tell R that the file structure starts at the Project-level, and so every subsequent call starts at the Project-level, and allows us to navigate throughout each of the folders and files within a given Project.
+
+The relative path from inside the project folder (data/covid19.csv) is the same on both computers; any code that uses relative paths will work on both!
+
+## Collect Information About the Current R Session
+
+We can also obtain information about R, the OS and attached or loaded packages:
+
+```{r, eval=FALSE}
+sessionInfo()
+```
+
+\newpage
+
+# Calculations with R
+
+## Using R as a calculator
+
+### Arithmetic calculations
+
+The simplest thing we could do with R is do arithmetic with numbers. For example:
+
+```{r }
+1 + 100
+```
+
+R printed out the answer, with a preceding `[1]`. Don't worry about this for now, we'll explain that later. For now we think of it as indicating output.
+
+### Order of operations (arithmetic operators)
+
+The basic arithmetic operators are presented in Figure \ref{fig:arithmetic_operators}:
+
+```{r, out.width="3.8in", fig.align = 'center', fig.cap="\\label{fig:arithmetic_operators}Arithmetic operators", echo=FALSE}
+include_graphics(here("images", "arithmetic_operators.png"))
+
+```
+
+Remember when using R as a calculator, the order of operations is the same as we would have learned back in school.
+
+From highest to lowest precedence:
+
+-   Parentheses: `( )`
+-   Exponents: `^` or `**`
+-   Divide: `/`
+-   Multiply: `*`
+-   Add: `+`
+-   Subtract: `-`
+
+Therefore:
+
+```{r}
+3 + 5 * 2
+```
+
+### Parentheses
+
+Use parentheses to group operations in order to force the order of evaluation if it differs from the default, or to make clear what we intend.
+
+```{r}
+(3 + 5) * 2
+```
+
+\vspace{12pt}
+
+This can get unwieldy when not needed, but clarifies our intentions. Remember that others may later read our code.
+
+```{r, eval=FALSE}
+(3 + (5 * (2 ^ 2))) # hard to read
+3 + 5 * 2 ^ 2       # clear, if we remember the rules
+3 + 5 * (2 ^ 2)     # if we forget some rules, this might help
+```
+
+```{=tex}
+\vspace{12pt} 
+\colorbox{blue!10}{
+  \begin{minipage}[t]{1.0\textwidth}
+  \textbf{\textcolor{brown}{Note}}
+The text after each line of code is called a \textbf{``comment"}. Anything that follows after the hash symbol \textbf{``\#"} is ignored by R when it executes code. It is considered good practice to comment your code when working in an .R script. 
+  \end{minipage}
+}
+```
+\vspace{14pt}
+
+## Mathematical functions
+
+R has many built in mathematical functions. To call a function, we simply **type its name, followed by open and closing parentheses**. Remember that anything we type inside the parentheses are called the function's **arguments**.
+
+**Examples**
+
+```{r}
+sin(pi/2)  # trigonometry functions, angles in radians
+```
+
+\vspace{12pt}
+
+```{r}
+log(100)  # natural logarithm
+```
+
+\vspace{12pt}
+
+```{r}
+log10(100) # base-10 logarithm
+```
+
+\vspace{12pt}
+
+```{r}
+exp(0.5) # e^(1/2)
+```
+
+\vspace{12pt}
+
+```{r}
+sqrt(9)    # squared root
+```
+
+\vspace{12pt}
+
+```{r}
+abs(-9)   # absolute value
+```
+
+\vspace{12pt}
+
+```{=tex}
+\vspace{12pt} 
+\colorbox{green!10}{
+  \begin{minipage}[t]{1.0\textwidth}
+  \textbf{\textcolor{brown}{Hint}}
+  The \textbf{round()} function is often very useful.
+  \end{minipage}
+}
+```
+\vspace{12pt}
+
+For example:
+
+```{r}
+round(7 / 3)                  # rounding the number the nearest integer
+round(7 / 3, digits = 3)      # rounding the number to two decimal places
+```
+
+The round function follows the **rounding principle**. By default, we will get the nearest integer to 7 / 3, which is 2. If we want to control the approximation accuracy, we can add a digits argument to specify how many digits we want after the decimal point. Here you will get 2.333 after adding digits = 3.
+
+Note that if the first digit that is dropped is exactly 5, R uses a rule that's common in programming languages: Always round to the nearest **even** number. For example:
+
+```{r}
+round(1.5)
+round(2.5)
+
+round(4.5)
+round(5.5)
+```
+
+\vspace{14pt}
+
+## Relational (comparison) operators
+
+The basic relational operators are presented in Figure \ref{fig:relational_operators}:
+
+```{r, out.width="3.8in", fig.align = 'center', fig.cap="\\label{fig:relational_operators}Relational operators", echo=FALSE}
+include_graphics(here("images", "relational_operators.png"))
+
+```
+
+\vspace{20pt}
+
+We can also evaluate the relationship between two arithmetic values using the `relational operators` (Table 2.1):
+
+| **symbol** | **read as**              |
+|------------|:-------------------------|
+| \<         | less than                |
+| \>         | greater than             |
+| ==         | equal to                 |
+| \<=        | less than or equal to    |
+| \>=        | greater than or equal to |
+| !=         | not equal to             |
+
+: Relational (comparison) operators
+
+**Examples**
+
+```{r}
+2 < 1  # less than
+```
+
+\vspace{12pt}
+
+```{r}
+1 > 0  # greater than
+```
+
+\vspace{12pt}
+
+```{r}
+1 == 1  # equal to (double equal sign for equality)
+```
+
+\vspace{12pt}
+
+```{r}
+1 <= 1  # less than or equal to
+```
+
+\vspace{12pt}
+
+```{r}
+-9 >= -3 # greater than or equal to
+```
+
+\vspace{12pt}
+
+```{r}
+1 != 2  # not equal to (inequality)
+```
+
+\vspace{12pt}
+
+When dealing with real numbers [\color{blue}\underline {(floating point number)}](http://en.wikipedia.org/wiki/Floating_point), we must be very careful when checking equality. For example, we know from trigonometry that:
+
+$$\cos(\frac{\pi}{2}) = \cos( \frac{3 \pi}{2}) = 0  $$
+
+However, if we compare the two numbers we get:
+
+```{r}
+cos(pi/2) == cos(3*pi/2)
+```
+
+In this instance, we can test for 'near equality' applying the `all.equal()` function which tests for equality with a difference tolerance of 1.5e-8.
+
+```{r}
+all.equal(cos(pi/2), cos(3*pi/2))
+```
+
+If the difference is greater than the tolerance level 1.5e-8 the function will return the mean relative difference.
+
+Try to test this:
+
+```{r, eval = FALSE}
+all.equal(4.0000007, 4.0000008)
+```
+
+\vspace{12pt}
+
+```{=tex}
+\colorbox{blue!10}{
+  \begin{minipage}[t]{1.0\textwidth}
+  \textbf{\textcolor{brown}{Comparing Numbers}}
+We should never use \textbf{==} to compare two numbers unless they are integers (whole numbers) or fractions whose denominator is a power of 2 ($2^n$, where n is integer).
+Computers may only represent decimal numbers with a certain degree of precision (rounded to typically 53 binary digits accuracy which allows representing decimal numbers to 15 or 16 significant digits), so two numbers which look the same when printed out by R, may actually have different underlying representations and therefore be different by a small margin of error (called Machine numeric tolerance).
+  \end{minipage}
+}
+```
+\vspace{14pt}
+
+```{=tex}
+\colorbox{blue!10}{
+  \begin{minipage}[t]{1.0\textwidth}
+  \textbf{\textcolor{brown}{Scientific notation}}
+is a special way of expressing numbers that are too big or too small to be conveniently written in decimal form. Generally, it expresses numbers in forms of $m \times 10^n$ and R uses the \textbf{e} notation. Note that the e notation has nothing to do with the natural number \textit{e} .
+
+  \end{minipage}
+}
+```
+**Examples**
+
+-   0.0055 is written $5.5 \times 10^{-3}$\
+    because 0.0055 = 5.5 × 0.001 = 5.5 × $10^{-3}$ or 5.5e-3
+
+-   0.000000015 is written $1.5 \times 10^{-8}$\
+    because 0.000000015 = 1.5 × 0.00000001 = 1.5 × $10^{-8}$ or 1.5e-8
+
+-   5500 is written $5.5 \times 10^{3}$\
+    because 5500 = 5.5 × 1000 = 5.5 × $10^{3}$ or 5.5e3
+
+-   150000000 is written $1.5 \times 10^{8}$\
+    because 150000000 = 1.5 × 100000000 = 1.5 × $10^{8}$ or 1.5e8
+
+## Special values
+
+When dealing with numeric data, integers, real or complex numbers are not enough to manage the real and the mathematical world.
+
+### Missing values (NA)
+
+For example, in the real world, missing values may occur when recording sensor information. R uses a special numeric value `NA` standing for `Not available`. Mathematical operations using `NA` produces NA:
+
+```{r}
+cos(NA)
+```
+
+\vspace{12pt}
+
+### Infinitive: `-Inf  or Inf`
+
+There is also a special number `Inf` which represents infinity. Fortunately, R has special numbers for this.
+
+This allows us to represent entities like:
+
+```{r}
+1/0
+```
+
+\vspace{12pt}
+
+The `Inf` can also be used in ordinary calculations:
+
+```{r}
+exp(-Inf)
+```
+
+\vspace{12pt}
+
+### Not A Number (NaN)
+
+The value NaN represents an undefined value and it is usually the product of some arithmetic operations. For example:
+
+```{r}
+Inf/Inf
+```
+
+```{r}
+0/0
+```
+
+```{r}
+cos(Inf)
+```
+
+\newpage
+
+# R Objects
+
+## What are the objects in R
+
+R works with objects (it is an object-oriented programming language). All the things that we manipulate or encounter in R such as numbers, data structures, functions, the results from a function (e.g., graphs) are types of objects. Some objects come with the packages in R. Other objects are user-created. User-created objects have names that are assigned by the user. R has a workspace known as the global environment that can be used to store objects.
+
+Objects in R can have many properties associated with them, called attributes. These properties explain what an object represents and how it should be interpreted by R. Two of the most important attributes of an R object are the `class` and the `dimension` of the object.
+
+Attributes of an object (if any) can be accessed using the `attributes()` function. Not all R objects contain attributes, in which case the `attributes()` function returns `NULL`.
+
+For example, the attributes of the famous `iris` data set is a `data.frame` that contains 150 rows and 5 columns:
+
+\vspace{12pt}
+
+```{r}
+class(iris); dim(iris)
+attributes(iris)
+```
+
+\vspace{12pt}
+
+```{=tex}
+\colorbox{blue!10}{
+  \begin{minipage}[t]{1.0\textwidth}
+  \textbf{\textcolor{brown}{Note}}
+R commands are usually separated by a new line but they can also be separated by a semicolon (\textbf{\ ; }).
+  \end{minipage}
+}
+```
+## Named storage of objects
+
+### Assignment operator (`<-`)
+
+In R we can store things in objects using the leftward assignment operator (`<-`) which is an arrow that points to the left, created with the `less-than (<)` sign and the hyphen (-) sign (keyboard shortcut: **`Alt`** + **`-`** for Windows and **`Option`** + **`-`** for Mac).
+
+For example, suppose we would like to store the number 1/40 for future use. We will assign this value to an object called `x`. To this, we type:
+
+```{r}
+x <- 1/40
+```
+
+\vspace{12pt}
+
+Notice that assignment does not print a value. Instead, R stores it for later in the **object** `x`. Call object `x` now and see that it contains the **value** `0.025`:
+
+```{r}
+x
+```
+
+If we look for the `Environment` tab in one of the panes of RStudio, we will see that `x` and its value have appeared.
+
+Our object `x` can be used in place of a number in any calculation that expects a number:
+
+```{r}
+log(x)
+```
+
+\vspace{12pt}
+
+It is important the space before and after comparison operators and assignments. For example, suppose we want to code the expression `x smaller than -1/50` :
+
+-   With spaces
+
+```{r}
+x < -1/50  # with spaces 
+```
+
+The result is the logical `FALSE` because the value x (equals to 1/40) is higher than -1/50.
+
+\vspace{12pt}
+
+-   Without spaces
+
+```{r}
+x<-1/50 # without spaces
+x
+```
+
+If we omit the spaces we end up with the assignment operator and we have `x <- 1/50` wich equals to 0.02.
+
+\vspace{14pt}
+
+### Other types of assignment
+
+```{=tex}
+\vspace{12pt} 
+\colorbox{blue!10}{
+  \begin{minipage}[t]{1.0\textwidth}
+  \textbf{\textcolor{brown}{Note}}
+It is also possible to use the \textbf{``="} or \textbf{``->"} rightward operator for assignment (but these are much less common among R users).
+   
+  \end{minipage}
+}
+```
+For example:
+
+```{r}
+x = 1/40
+x
+```
+
+or
+
+```{r}
+1/40 -> x
+x
+```
+
+\vspace{12pt}
+
+It is a good idea to **be consistent** with the operator we use.
+
+```{=tex}
+\vspace{14pt} 
+\colorbox{blue!10}{
+  \begin{minipage}[t]{1.0\textwidth}
+  \textbf{\textcolor{brown}{Note}}
+Surrounding the assignment with parentheses results in both assignment and ``print to screen" to happen.
+  \end{minipage}
+}
+```
+For example:
+
+```{r}
+(x <- 1/40)
+```
+
+## Reassigning an object
+
+Notice also that objects can be **reassigned**. For example, recall the `x` object:
+
+```{r}
+x
+```
+
+then type the following:
+
+```{r}
+x <- 100
+x
+```
+
+`x` used to contain the value 0.025 and now it has the value 100.
+
+\vspace{12pt}
+
+Moreover, assignment values can contain the object being assigned to:
+
+```{r}
+# notice how RStudio updates its description of x 
+# on the Envirinment tab
+
+x <- x + 1 
+x
+```
+
+The right hand side of the assignment can be any valid R expression and it is fully evaluated **before** the assignment takes place.
+
+```{=tex}
+\vspace{12pt} 
+\colorbox{blue!10}{
+              \begin{minipage}[t]{1.0\textwidth}
+              \textbf{\textcolor{brown}{Note}}
+Keyboard Shortcut for commenting out/commenting in multiple lines at a
+time: Control+Shift+C
+              \end{minipage}
+           }
+\vspace{14pt}
+```
+\vspace{14pt}
+
+## Legal object names
+
+Object names must start with a letter and **can** contain letters, numbers, underscores `( _ )` and periods (.). They **cannot** start with a number or underscore, nor contain spaces at all. Moreover, they can not contain [\color{blue}\underline {\`\`reserved" words.}](https://stat.ethz.ch/R-manual/R-devel/library/base/html/Reserved.html)
+
+\vspace{12pt}
+
+Different people use different conventions for long object names, these include:
+
+-   periods.between.words
+-   underscores_between_words
+-   camelCaseToSeparateWords
+
+What we use is up to us, but we must **be consistent**. We might ask help:
+
+```{r, eval=F}
+??make.names
+??clean_names
+```
+
+```{=tex}
+\vspace{12pt} 
+\colorbox{blue!10}{
+  \begin{minipage}[t]{1.0\textwidth}
+  \textbf{\textcolor{brown}{Note}}
+R is \textbf{case-sensitive} – it treats capital letters differently from lower-case letters.
+  \end{minipage}
+}
+```
+```{r, error=TRUE, eval=TRUE}
+Y <- 50
+Y
+```
+
+but...
+
+```{r, error=TRUE, eval=FALSE}
+y
+```
+
+`r text_spec("Error: object 'y' not found", color = "red")`
+
+## We are not limited to store numbers in objects
+
+In objects we can also store other data types. For example, we can store strings of characters:
+
+```{r}
+sentence <- "the cat sat on the mat"
+```
+
+Note that we need to put strings of characters inside **quotes**.
+
+\vspace{14pt}
+
+But the type of data that is stored in an object affects what we can do with it:
+
+```{r , error=TRUE, eval=FALSE}
+sentence + 1
+```
+
+`r text_spec("Error in sentence + 1: non-numeric argument to binary operator", color = "red")`
+
+# How to make a REPRoducible EXample (reprex)?
+
+If we are looking for help with an rstats problem, it is recommend that we:
+
+\faArrowAltCircleRight {} do *not* email an individual author or open source software (OSS) maintainer
+
+\faArrowAltCircleRight {} create a minimum reproducible example (a reprex) demonstrating your problem
+
+\faArrowAltCircleRight {} post on a public forum like RStudio Community or Stack Overflow
+
+## What is a reprex?
+
+The purpose of a reprex is to illustrate a particular outcome. The reader should know what outcome to expect. The reprex should do that one thing, and only that thing.
+
+The reprex should be able to be run by any user who so wishes and return the exact same result.
+
+It contains only the functions that are absolutely necessary to illustrate the point. If this is in the context of data analysis, the included dataset is as small as possible.
+
+## Why would we need a reprex?
+
+1.  To demonstrate an issue or bug in our code
+
+2.  To demonstrate a solution to an issue or bug in someone else's code
+
+3.  To document a useful snippet of code for future reference
+
+## Enhance your reprex using the `reprex` package
+
+If we install `reprex` package we can use a function, `reprex()` to generate clean example code, with commented output. Of course, we need to create the minimal code our-self, but once we have it, calling the reprex function adds in the output so that others can see exactly what our computer returned. It's a minor change but can make all the difference to someone who wants to help us.
+
+```{r, out.width='100%', fig.align = 'center', fig.cap="\\label{fig:reprex_example}A reprex example", echo=FALSE}
+include_graphics(here("images", "reprex_example.png"))
+```
+
+\pagebreak
+
+# Activities
+
+## \faPen {} Activity 1 {.unnumbered}
+
+(a) Write R code to assign the value `20` to the name `num_1`.
+
+(b) Which of the following is a valid object name in R?
+
+-   2.True
+-   else
+-   I_am_not_a\_valid_name
+-   I_am_a\_Pretty#\_name
+
+## \faPen {} Activity 2 {.unnumbered}
+
+(a) Think about what is the value of $1^{NA}$ in R. Try to run it in R. Does it agree with your thoughts?
+
+(b) Think about what is the value of $0^{NA}$ in R. Try to run it in R. Does it agree with your thoughts?

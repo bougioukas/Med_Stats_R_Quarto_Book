@@ -1,0 +1,45 @@
+project:
+  type: book
+  output-dir: _book
+book:
+  title: "An Introduction to Medical Statistics with R"
+  subtitle: "1st Edition"
+  author: "Konstantinos I. Bougioukas, PhD"
+  date: "June 12, 2022"
+  chapters:
+    - index.qmd
+    - intro.qmd
+    - introduction.qmd
+    - summary.qmd
+    - references.qmd
+  number-depth: 2
+
+bibliography: references.bib
+
+format:
+  html:
+    theme: cosmo
+  pdf:
+    documentclass: scrbook
+    colorlinks: true
+    linkcolor: "blue"
+    filecolor: "red"
+    citecolor: "green"
+    urlcolor: "blue"
+    toccolor: "gray"
+    lof: true
+    lot: true
+    linestretch: 1.4
+    fontsize: 16pt
+    mainfont: "Roboto"
+    toc-depth: 2
+    geometry: 
+      - margin=1.05in
+      - top = 1.25in
+      - bottom= 1.25in 
+    include-in-header: 
+      text: |   
+        \usepackage{fontawesome5}
+      
+editor: visual
+

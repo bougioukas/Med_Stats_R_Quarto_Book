@@ -1,0 +1,15 @@
+# Preface {.unnumbered}
+
+This textbook is intended as an introduction to some of the statistical ideas and concepts important to life-science field. It is written for postgraduate students, with most topics also being suitable for undergraduate medical students. The textbook is beneficial to other branches of biological sciences like dental, veterinary, agriculture, etc. which have a lot in common with medical field in the methodology. The textbook is also intended for a wider range of readers who use statistical methods in their research.
+
+While statistics books focus on mathematics, this textbook focuses on using a computer to conduct data analysis. That means using a statistical software package, in this case the [R](https://www.r-project.org/) programming language for statistics and graphics. Our aim is to keep a balance between mathematical rigor and readability as well as learning R and statistics simultaneously.
+
+Most of the examples discussed in this textbook are based on scientific studies whose data are publicly available. For each example, we provide the step-by-step application of R. Readers are encouraged to follow these steps while reading the textbook so that they can learn statistics through hands-on experience.
+
+All sections of this textbook are reproducible as they were made using [Quarto](https://quarto.org/)^®^ that includes R code used to produce the figures, tables and results shown in the book. Quarto^®^ is an open-source scientific and technical publishing system built on [Pandoc](https://pandoc.org/).
+
+To learn more about Quarto books visit <https://quarto.org/docs/books>.
+
+## License
+
+This textbook is **free to use**, and is licensed under the [Creative Commons Attribution-NonCommercial-NoDerivs 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/) License. If you'd like to give back, please consider reporting a typo or leaving a pull request at [github.com/rstudio-education/hopr](https://github.com/rstudio-education/hopr).

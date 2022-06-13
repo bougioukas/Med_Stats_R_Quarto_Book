@@ -1,0 +1,58 @@
+# Introduction to R and R studio
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, eval = TRUE)
+
+library(tidyverse)
+library(readr)
+library(here)
+
+library(flextable)
+
+library(knitr)
+library(kableExtra)
+options(width=45)
+knitr::opts_chunk$set(fig.pos = 'H', dev = "cairo_pdf")
+```
+
+\vspace{14pt}
+
+## Learning Objectives {.unnumbered}
+
+-   Describe the purpose and use of each pane in the RStudio IDE
+-   Locate buttons, options in the RStudio IDE
+-   Work with R projects
+-   Understand the concept of functions and packages
+-   Use R as a calculator
+-   Use mathematical functions and relational operators
+-   Understand special values (NA, Inf, NaN)
+-   Understand the concept of objects in R
+-   Set legal names to objects
+-   Work with assignment operators
+
+\newpage
+
+## R and RStudio basics
+
+### Installing R and RStudio
+
+```{=tex}
+\newpage
+\vspace{16pt}
+```
+![Elephant](images/cover.png)
+
+\pagebreak
+
+# Activities
+
+## \faPen {} Activity 1 {.unnumbered}
+
+(a) Write R code to assign the value `20` to the name `num_1`.
+
+(b) Which of the following is a valid object name in R?
+
+-   2.True
+-   else
+-   I_am_not_a\_valid_name
+-   I_am_a\_Pretty#\_name
