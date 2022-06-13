@@ -1,0 +1,58 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "An Introduction to Medical Statistics with R",
+    "section": "",
+    "text": "This textbook is intended as an introduction to some of the statistical ideas and concepts important to life-science field. It is written for postgraduate students, with most topics also being suitable for undergraduate medical students. The textbook is beneficial to other branches of biological sciences like dental, veterinary, agriculture, etc. which have a lot in common with medical field in the methodology. The textbook is also intended for a wider range of readers who use statistical methods in their research.\nWhile statistics books focus on mathematics, this textbook focuses on using a computer to conduct data analysis. That means using a statistical software package, in this case the R programming language for statistics and graphics. Our aim is to keep a balance between mathematical rigor and readability as well as learning R and statistics simultaneously.\nMost of the examples discussed in this textbook are based on scientific studies whose data are publicly available. For each example, we provide the step-by-step application of R. Readers are encouraged to follow these steps while reading the textbook so that they can learn statistics through hands-on experience.\nAll sections of this textbook are reproducible as they were made using Quarto® that includes R code used to produce the figures, tables and results shown in the book. Quarto® is an open-source scientific and technical publishing system built on Pandoc.\nNew\nTo learn more about Quarto books visit https://quarto.org/docs/books.\n\n\nThis textbook is free to use, and is licensed under the Creative Commons Attribution-NonCommercial-NoDerivs 4.0 License. If you’d like to give back, please consider reporting a typo or leaving a pull request at github.com/rstudio-education/hopr."
+  },
+  {
+    "objectID": "intro.html",
+    "href": "intro.html",
+    "title": "1  Examples",
+    "section": "",
+    "text": "This is a new book created from markdown and executable code.\nSee Knuth (1984) for additional discussion of literate programming."
+  },
+  {
+    "objectID": "intro.html#intro-2",
+    "href": "intro.html#intro-2",
+    "title": "1  Examples",
+    "section": "1.1 intro 2",
+    "text": "1.1 intro 2\n\n\n\n\n\n\nThis book was originally created using bookdown and published at https://rstudio-education.github.io/hopr/. This site is a port of the original book source to the Quarto publishing system in order to provide an example of it’s use.\n\n\n\n\n\n\n\n\n\nRepetition\n\n\n\nIf you repeat a number in your index, R will return the corresponding value(s) more than once in your “subset.” This code will return the first row of deck twice:\nx <- c(1, 2, 3)\nx\n\n\n\n\n\n\n\n\nExercise: Deal a Card\n\n\n\nComplete the following code to make a function that returns the first row of a data frame:\ndeal <- function(cards) {\n   # ?\n}\n\n\n\n\n\n\n\n\nExercise: Shuffle a Deck\n\n\n\nUse the preceding ideas to write a shuffle function. shuffle should take a data frame and return a shuffled copy of the data frame.\n\n\n\n\n\n\n\n\nNever attach\n\n\n\nIn R’s early days, it became popular to use attach() on a data set once you had it loaded. Don’t do this! attach recreates a computing environment similar to those used in other statistics applications like Stata and SPSS, which crossover users liked. However, R is not Stata or SPSS. R is optimized to use the R computing environment, and running attach() can cause confusion with some R functions.\nWhat does attach() do? On the surface, attach saves you typing. If you attach the deck data set, you can refer to each of its variables by name; instead of typing deck$face, you can just type face. But typing isn’t bad. It gives you a chance to be explicit, and in computer programming, explicit is good. Attaching a data set creates the possibility that R will confuse two variable names. If this occurs within a function, you’re likely to get unusable results and an unhelpful error message to explain what happened.\n\n\n\n\n\n\n\n\n= is an assignment operator\n\n\n\nBe careful not to confuse = with ==. = does the same thing as <-: it assigns a value to an object.\n\n\nYou can compare any two R objects with a logical operator; however, logical operators make the most sense if you compare two objects of the same data type. If you compare objects of different data types, R will use its coercion rules to coerce the objects to the same type before it makes the comparison.\nExercise: How many Aces?\n\n\n\n\n\n\nExtract the face column of deck2 and test whether each value is equal to ace. As a challenge, use R to quickly count how many cards are equal to ace.\n\n\n\n\n\n\n\n\n\nImportant\n\n\n\nSome R commands may take a long time to run. You can cancel a command once it has begun by pressing ctrl + c. Note that it may also take R a long time to cancel the command.\n\n\n\n\n\n\n\n\nExercise: Magic with Numbers\n\n\n\nThat’s the basic interface for executing R code in RStudio. Think you have it? If so, try doing these simple tasks. If you execute everything correctly, you should end up with the same number that you started with:\n\nChoose any number and add 2 to it.\nMultiply the result by 3.\nSubtract 6 from the answer.\nDivide what you get by 3.\n\n\n\n\n\n\n\n\n\nNote\n\n\n\n\nTo create an R object, choose a name and then use the less-than symbol, <, followed by a minus sign, -, to save data into it. This combination looks like an arrow, <-. R will make an object, give it your name, and store in it whatever follows the arrow. So a <- 1 stores 1 in an object named a.\nWhen you ask R what’s in a, R tells you on the next line.\nYou can use your object in new R commands, too. Since a previously stored the value of 1, you’re now adding 1 to 2.\n\n\n\n\n\n\n\n\n\nImportant\n\n\n\nAs you preview your book, chapters will be rendered and updated. However, if you make changes to global options (e.g. _quarto.yml or included files) you need to fully re-render your book to have all of the changes reflected. Consequently, you should always fully quarto render your book before deploying it, even if you have already previewed changes to some chapters with the preview server.\n\n\n\n\n\n\nKnuth, Donald E. 1984. “Literate Programming.” Comput. J. 27 (2): 97–111. https://doi.org/10.1093/comjnl/27.2.97."
+  },
+  {
+    "objectID": "introduction.html",
+    "href": "introduction.html",
+    "title": "2  Introduction to R and R studio",
+    "section": "",
+    "text": "Describe the purpose and use of each pane in the RStudio IDE\nLocate buttons, options in the RStudio IDE\nWork with R projects\nUnderstand the concept of functions and packages\nUse R as a calculator\nUse mathematical functions and relational operators\nUnderstand special values (NA, Inf, NaN)\nUnderstand the concept of objects in R\nSet legal names to objects\nWork with assignment operators"
+  },
+  {
+    "objectID": "introduction.html#r-and-rstudio-basics",
+    "href": "introduction.html#r-and-rstudio-basics",
+    "title": "2  Introduction to R and R studio",
+    "section": "2.1 R and RStudio basics",
+    "text": "2.1 R and RStudio basics\n\n2.1.1 Installing R and RStudio\n\n\n\nElephant"
+  },
+  {
+    "objectID": "introduction.html#activity-1",
+    "href": "introduction.html#activity-1",
+    "title": "2  Introduction to R and R studio",
+    "section": " Activity 1",
+    "text": "Activity 1\n\nWrite R code to assign the value 20 to the name num_1.\nWhich of the following is a valid object name in R?\n\n\n2.True\nelse\nI_am_not_a_valid_name\nI_am_a_Pretty#_name"
+  },
+  {
+    "objectID": "summary.html",
+    "href": "summary.html",
+    "title": "3  Summary",
+    "section": "",
+    "text": "1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "references.html",
+    "href": "references.html",
+    "title": "References",
+    "section": "",
+    "text": "Knuth, Donald E. 1984. “Literate Programming.” Comput.\nJ. 27 (2): 97–111. https://doi.org/10.1093/comjnl/27.2.97."
+  }
+]
